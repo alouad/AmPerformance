@@ -19,6 +19,7 @@ class AppointmentController extends Controller {
         
         $appointment = Appointment::create([
             'student_id' => $request->user()->id,
+            'student_name' => trim($request->user()->name . ' ' . $request->user()->prenom),
             'counselor_id' => 1,
             'date' => $request->date,
             'status' => 'pending',
