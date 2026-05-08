@@ -1,30 +1,41 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { loginStart, loginSuccess } from '../redux/slices/authSlice';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser, clearError } from '../redux/slices/authSlice';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { loading, error, isAuthenticated } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(clearError());
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate, dispatch]);
 
   const handleLogin = (e) => {
     e.preventDefault();
-    dispatch(loginStart());
-    // Simulate API Call for now
-    setTimeout(() => {
-      dispatch(loginSuccess({ name: 'Étudiant Test', email, role: 'etudiant' }));
-    }, 1000);
+    dispatch(loginUser({ email, password }));
   };
 
   return (
     <div className="auth-wrapper">
       <div className="auth-card">
         <div className="text-center mb-4">
-          <h2 className="fw-bold text-dark-red">Connexion</h2>
-          <p className="text-muted">Ravi de vous revoir sur AmPerformance !</p>
+          <h2 className="fw-bold text-dark">Connexion</h2>
+          <p className="text-muted">Ravi de vous revoir sur AMORIENTATION.MA !</p>
         </div>
         
+        {error && (
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
+        )}
+
         <form onSubmit={handleLogin}>
           <div className="mb-4">
             <label className="form-label fw-bold text-dark">Adresse Email</label>
@@ -58,8 +69,8 @@ const Login = () => {
             <a href="#!" className="text-red text-decoration-none fw-semibold">Mot de passe oublié ?</a>
           </div>
 
-          <button type="submit" className="btn btn-primary-custom w-100 py-2 mb-3">
-            Se connecter
+          <button type="submit" className="btn btn-primary-custom w-100 py-2 mb-3" disabled={loading}>
+            {loading ? 'Connexion en cours...' : 'Se connecter'}
           </button>
         </form>
         

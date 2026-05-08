@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser, clearError } from '../redux/slices/authSlice';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -7,30 +9,44 @@ const Register = () => {
     prenom: '',
     email: '',
     password: '',
-    niveauEtude: '',
+    niveau_etudes: '',
     filiere: ''
   });
   
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { loading, error } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    dispatch(clearError());
+  }, [dispatch]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    // Simulate API registration
-    alert('Inscription réussie !');
-    navigate('/login');
+    const resultAction = await dispatch(registerUser(formData));
+    if (registerUser.fulfilled.match(resultAction)) {
+      alert('Inscription réussie ! Vous pouvez maintenant vous connecter.');
+      navigate('/login');
+    }
   };
 
   return (
     <div className="auth-wrapper py-5">
       <div className="auth-card" style={{ maxWidth: '600px' }}>
         <div className="text-center mb-4">
-          <h2 className="fw-bold text-dark-red">Créer un compte</h2>
+          <h2 className="fw-bold text-dark">Créer un compte</h2>
           <p className="text-muted">Rejoignez la plateforme et trouvez votre voie !</p>
         </div>
+
+        {error && (
+          <div className="alert alert-danger" role="alert">
+            {error}
+          </div>
+        )}
         
         <form onSubmit={handleRegister}>
           <div className="row g-3 mb-3">
@@ -76,8 +92,8 @@ const Register = () => {
               <label className="form-label fw-bold text-dark">Niveau d'études actuel</label>
               <select 
                 className="form-select form-control" 
-                name="niveauEtude"
-                value={formData.niveauEtude}
+                name="niveau_etudes"
+                value={formData.niveau_etudes}
                 onChange={handleChange}
                 required
               >
@@ -114,8 +130,8 @@ const Register = () => {
             />
           </div>
 
-          <button type="submit" className="btn btn-primary-custom w-100 py-2 mb-3">
-            Créer mon compte
+          <button type="submit" className="btn btn-primary-custom w-100 py-2 mb-3" disabled={loading}>
+            {loading ? 'Création en cours...' : 'Créer mon compte'}
           </button>
         </form>
         
