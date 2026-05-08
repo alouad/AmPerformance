@@ -59,6 +59,18 @@ export const fetchCurrentUser = createAsyncThunk(
   }
 );
 
+export const updateUserProfile = createAsyncThunk(
+  'auth/updateProfile',
+  async (profileData, { rejectWithValue }) => {
+    try {
+      const response = await api.put('/profile', profileData);
+      return response.data.user;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Erreur lors de la mise à jour');
+    }
+  }
+);
+
 const initialState = {
   user: null,
   isAuthenticated: !!localStorage.getItem('token'),
@@ -115,6 +127,19 @@ const authSlice = createSlice({
       .addCase(fetchCurrentUser.rejected, (state) => {
         state.isAuthenticated = false;
         state.user = null;
+      })
+      // Update Profile
+      .addCase(updateUserProfile.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });

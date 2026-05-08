@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { fetchCurrentUser } from './redux/slices/authSlice';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
@@ -8,9 +10,18 @@ import Formations from './pages/Formations';
 import Institutions from './pages/Institutions';
 import Articles from './pages/Articles';
 import RendezVous from './pages/RendezVous';
+import Profile from './pages/Profile';
 import './App.css';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem('token')) {
+      dispatch(fetchCurrentUser());
+    }
+  }, [dispatch]);
+
   return (
     <Router>
       <div className="App d-flex flex-column min-vh-100">
@@ -24,7 +35,7 @@ function App() {
             <Route path="/institutions" element={<Institutions />} />
             <Route path="/articles" element={<Articles />} />
             <Route path="/rendez-vous" element={<RendezVous />} />
-            <Route path="/profile" element={<div className="container py-5 text-center"><h1>Mon Profil</h1></div>} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </main>
         
