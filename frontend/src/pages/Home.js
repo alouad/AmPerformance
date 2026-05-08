@@ -89,14 +89,19 @@ const Home = () => {
       <div className="container mb-5 pb-5">
         <h3 className="text-center fw-bold text-dark mb-5">Où nous trouver</h3>
         <div className="card shadow-sm" style={{ borderRadius: '8px', overflow: 'hidden', border: '1px solid #EAEAEA' }}>
-          <div className="map-placeholder">
-            <i className="bi bi-geo-alt"></i>
-          </div>
+          <a href="https://maps.app.goo.gl/GyddcYWMPYBXqRQe6" target="_blank" rel="noopener noreferrer" className="text-decoration-none">
+            <div className="map-placeholder" style={{ cursor: 'pointer', transition: 'background-color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.backgroundColor='#e0e0e0'} onMouseOut={(e) => e.currentTarget.style.backgroundColor='#EBEBEB'}>
+              <div className="text-center">
+                <i className="bi bi-geo-alt d-block mb-2"></i>
+                <span className="text-red fw-bold">Voir sur Google Maps</span>
+              </div>
+            </div>
+          </a>
           <div className="card-body p-4">
             <h5 className="fw-bold text-dark mb-3">Notre adresse</h5>
-            <p className="text-muted mb-1" style={{ fontSize: '0.9rem' }}>123 Boulevard Mohammed V</p>
+            <p className="text-muted mb-1" style={{ fontSize: '0.9rem' }}>Bureau 449, 4ème étage</p>
             <p className="text-muted mb-1" style={{ fontSize: '0.9rem' }}>Casablanca, Maroc</p>
-            <p className="text-muted mb-1" style={{ fontSize: '0.9rem' }}>Tél: +212 5XX-XXXXXX</p>
+            <p className="text-muted mb-1" style={{ fontSize: '0.9rem' }}>Tél: +212 522 255 027 / +212 760 109 182</p>
             <p className="text-muted mb-0" style={{ fontSize: '0.9rem' }}>Email: contact@amorientation.ma</p>
           </div>
         </div>

@@ -51,8 +51,8 @@ function App() {
               <div className="col-md-4 mb-4">
                 <h6 className="fw-bold text-white mb-4">Contact</h6>
                 <p className="text-muted mb-2" style={{ fontSize: '0.9rem' }}>Email: contact@amorientation.ma</p>
-                <p className="text-muted mb-2" style={{ fontSize: '0.9rem' }}>Tél: +212 5XX-XXXXXX</p>
-                <p className="text-muted mb-0" style={{ fontSize: '0.9rem' }}>Adresse: Casablanca, Maroc</p>
+                <p className="text-muted mb-2" style={{ fontSize: '0.9rem' }}>Tél: +212 522 255 027 / +212 760 109 182</p>
+                <p className="text-muted mb-0" style={{ fontSize: '0.9rem' }}>Adresse: Bureau 449, 4ème étage, Casablanca</p>
               </div>
             </div>
             <hr className="mt-4 mb-4" style={{ borderColor: '#404040' }} />
