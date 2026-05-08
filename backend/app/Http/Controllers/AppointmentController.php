@@ -7,6 +7,10 @@ use App\Mail\AppointmentCreated;
 use Illuminate\Support\Facades\Log;
 
 class AppointmentController extends Controller {
+    public function index(Request $request) {
+        return response()->json($request->user()->appointments()->orderBy('created_at', 'desc')->get());
+    }
+
     public function store(Request $request) {
         $request->validate([
             'date' => 'required|date',

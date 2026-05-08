@@ -19,6 +19,9 @@ const Profile = () => {
   });
   const [successMsg, setSuccessMsg] = useState('');
 
+  const [appointments, setAppointments] = useState([]);
+  const [loadingAppts, setLoadingAppts] = useState(true);
+
   useEffect(() => {
     if (!isAuthenticated) {
       navigate('/login');
@@ -34,8 +37,28 @@ const Profile = () => {
         niveau_etudes: user.niveau_etudes || '',
         filiere: user.filiere || '',
         interets: user.interets || '',
-        password: '' // Keep empty for security
+        password: ''
       });
+
+      // Fetch appointments
+      const fetchAppointments = async () => {
+        try {
+          const token = localStorage.getItem('token');
+          const response = await fetch('http://localhost:8000/api/appointments', {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Accept': 'application/json'
+            }
+          });
+          const data = await response.json();
+          if (response.ok) setAppointments(data);
+        } catch (error) {
+          console.error('Erreur:', error);
+        } finally {
+          setLoadingAppts(false);
+        }
+      };
+      fetchAppointments();
     }
   }, [user]);
 
@@ -47,9 +70,7 @@ const Profile = () => {
     e.preventDefault();
     setSuccessMsg('');
     const dataToSubmit = { ...formData };
-    if (!dataToSubmit.password) {
-      delete dataToSubmit.password; // Don't send empty password
-    }
+    if (!dataToSubmit.password) delete dataToSubmit.password;
     
     try {
       await dispatch(updateUserProfile(dataToSubmit)).unwrap();
@@ -64,15 +85,15 @@ const Profile = () => {
 
   return (
     <div className="container py-5">
-      <div className="row justify-content-center">
-        <div className="col-md-8">
-          <div className="card shadow-sm border-0">
+      <div className="row g-4">
+        {/* Profile Form */}
+        <div className="col-lg-7">
+          <div className="card shadow-sm border-0 h-100">
             <div className="card-header bg-dark-red text-white">
-              <h4 className="mb-0 fw-bold"><i className="bi bi-person-circle me-2"></i>Mon Profil</h4>
+              <h5 className="mb-0 fw-bold"><i className="bi bi-person-circle me-2"></i>Mon Profil</h5>
             </div>
             <div className="card-body p-4">
               {successMsg && <div className="alert alert-success">{successMsg}</div>}
-              
               <form onSubmit={handleSubmit}>
                 <div className="row mb-3">
                   <div className="col-md-6">
@@ -121,6 +142,43 @@ const Profile = () => {
                   {loading ? 'Sauvegarde...' : 'Enregistrer les modifications'}
                 </button>
               </form>
+            </div>
+          </div>
+        </div>
+
+        {/* Appointments Section */}
+        <div className="col-lg-5">
+          <div className="card shadow-sm border-0 h-100">
+            <div className="card-header bg-dark text-white">
+              <h5 className="mb-0 fw-bold"><i className="bi bi-calendar-check me-2"></i>Mes Rendez-vous</h5>
+            </div>
+            <div className="card-body p-4">
+              {loadingAppts ? (
+                <div className="text-center py-4"><div className="spinner-border text-red" role="status"></div></div>
+              ) : appointments.length > 0 ? (
+                <div className="list-group list-group-flush">
+                  {appointments.map(appt => (
+                    <div key={appt.id} className="list-group-item px-0 py-3 border-bottom">
+                      <div className="d-flex justify-content-between align-items-center mb-1">
+                        <h6 className="fw-bold mb-0">Rendez-vous Conseiller</h6>
+                        <span className={`badge ${appt.status === 'pending' ? 'bg-warning text-dark' : 'bg-success'}`}>
+                          {appt.status === 'pending' ? 'En attente' : 'Confirmé'}
+                        </span>
+                      </div>
+                      <p className="text-muted small mb-1"><i className="bi bi-clock me-1"></i> Date prévue : {new Date(appt.date).toLocaleString('fr-FR', {dateStyle: 'medium', timeStyle: 'short'})}</p>
+                      {appt.notes && <p className="mb-0 small text-secondary fst-italic">"{appt.notes}"</p>}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-5">
+                  <i className="bi bi-calendar-x display-4 text-muted mb-3 d-block"></i>
+                  <p className="text-muted">Vous n'avez pris aucun rendez-vous pour le moment.</p>
+                  <button onClick={() => navigate('/rendez-vous')} className="btn btn-outline-custom btn-sm mt-2">
+                    Prendre un rendez-vous
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>
