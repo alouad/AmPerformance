@@ -4,6 +4,10 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Formations from './pages/Formations';
+import Institutions from './pages/Institutions';
+import Articles from './pages/Articles';
+import RendezVous from './pages/RendezVous';
 import './App.css';
 
 function App() {
@@ -16,9 +20,10 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/orientations" element={<div className="container py-5 text-center"><h1>Formations</h1></div>} />
-            <Route path="/institutions" element={<div className="container py-5 text-center"><h1>Établissements</h1></div>} />
-            <Route path="/articles" element={<div className="container py-5 text-center"><h1>Articles</h1></div>} />
+            <Route path="/orientations" element={<Formations />} />
+            <Route path="/institutions" element={<Institutions />} />
+            <Route path="/articles" element={<Articles />} />
+            <Route path="/rendez-vous" element={<RendezVous />} />
             <Route path="/profile" element={<div className="container py-5 text-center"><h1>Mon Profil</h1></div>} />
           </Routes>
         </main>
