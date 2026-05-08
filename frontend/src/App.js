@@ -16,18 +16,49 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-            {/* Placeholder routes for later */}
-            <Route path="/orientations" element={<div className="container py-5 text-center"><h1>Filières et Orientations</h1><p>En construction...</p></div>} />
-            <Route path="/institutions" element={<div className="container py-5 text-center"><h1>Établissements</h1><p>En construction...</p></div>} />
-            <Route path="/profile" element={<div className="container py-5 text-center"><h1>Mon Profil</h1><p>En construction...</p></div>} />
+            <Route path="/orientations" element={<div className="container py-5 text-center"><h1>Formations</h1></div>} />
+            <Route path="/institutions" element={<div className="container py-5 text-center"><h1>Établissements</h1></div>} />
+            <Route path="/articles" element={<div className="container py-5 text-center"><h1>Articles</h1></div>} />
+            <Route path="/profile" element={<div className="container py-5 text-center"><h1>Mon Profil</h1></div>} />
           </Routes>
         </main>
         
-        <footer className="bg-white py-4 mt-auto text-center border-top">
+        <footer className="bg-dark text-white pt-5 pb-3 mt-auto">
           <div className="container">
-            <p className="mb-0 text-muted">
-              &copy; {new Date().getFullYear()} <span className="text-dark-red fw-bold">AmPerformance</span>. Tous droits réservés.
-            </p>
+            <div className="row">
+              <div className="col-md-5 mb-4">
+                <h4 className="fw-bold mb-3">
+                  <span className="text-white">AMORIENTATION</span>
+                  <span className="text-red">.MA</span>
+                </h4>
+                <p className="text-muted" style={{ fontSize: '0.9rem', maxWidth: '350px' }}>
+                  Votre plateforme marocaine d'orientation académique pour trouver votre voie idéale.
+                </p>
+                <div className="d-flex mt-3">
+                  <a href="#!" className="social-icon"><i className="bi bi-facebook"></i></a>
+                  <a href="#!" className="social-icon"><i className="bi bi-instagram"></i></a>
+                  <a href="#!" className="social-icon"><i className="bi bi-twitter-x"></i></a>
+                  <a href="#!" className="social-icon"><i className="bi bi-linkedin"></i></a>
+                </div>
+              </div>
+              <div className="col-md-3 mb-4">
+                <h6 className="fw-bold text-white mb-4">Liens rapides</h6>
+                <a href="/" className="footer-link">Accueil</a>
+                <a href="/institutions" className="footer-link">Établissements</a>
+                <a href="/orientations" className="footer-link">Formations</a>
+                <a href="/articles" className="footer-link">Articles</a>
+              </div>
+              <div className="col-md-4 mb-4">
+                <h6 className="fw-bold text-white mb-4">Contact</h6>
+                <p className="text-muted mb-2" style={{ fontSize: '0.9rem' }}>Email: contact@amorientation.ma</p>
+                <p className="text-muted mb-2" style={{ fontSize: '0.9rem' }}>Tél: +212 5XX-XXXXXX</p>
+                <p className="text-muted mb-0" style={{ fontSize: '0.9rem' }}>Adresse: Casablanca, Maroc</p>
+              </div>
+            </div>
+            <hr className="mt-4 mb-4" style={{ borderColor: '#404040' }} />
+            <div className="text-center" style={{ fontSize: '0.8rem', color: '#888' }}>
+              &copy; 2026 AMORIENTATION.MA - Tous droits réservés
+            </div>
           </div>
         </footer>
       </div>
