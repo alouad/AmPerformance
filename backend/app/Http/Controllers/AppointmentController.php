@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Log;
 
 class AppointmentController extends Controller {
     public function index(Request $request) {
+        // Auto-update past appointments to 'completed'
+        Appointment::where('student_id', $request->user()->id)
+            ->where('date', '<', now())
+            ->whereIn('status', ['pending', 'confirmed'])
+            ->update(['status' => 'completed']);
+
         return response()->json($request->user()->appointments()->orderBy('created_at', 'desc')->get());
     }
 

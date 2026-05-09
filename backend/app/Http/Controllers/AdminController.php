@@ -10,6 +10,11 @@ class AdminController extends Controller
 {
     // ================= APPOINTMENTS =================
     public function getAppointments() {
+        // Auto-update past appointments to 'completed'
+        Appointment::where('date', '<', now())
+            ->whereIn('status', ['pending', 'confirmed'])
+            ->update(['status' => 'completed']);
+
         return response()->json(Appointment::with('student')->orderBy('created_at', 'desc')->get());
     }
 
