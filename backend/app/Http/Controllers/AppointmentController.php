@@ -4,6 +4,7 @@ use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AppointmentCreated;
+use App\Mail\AppointmentCanceled;
 use Illuminate\Support\Facades\Log;
 
 class AppointmentController extends Controller {
@@ -39,6 +40,13 @@ class AppointmentController extends Controller {
         $appointment = Appointment::where('id', $id)->where('student_id', $request->user()->id)->firstOrFail();
         $appointment->status = 'annulé';
         $appointment->save();
+
+        try {
+            Mail::to('nouralhouda.tech@gmail.com')->send(new AppointmentCanceled($appointment, $request->user()));
+        } catch (\Exception $e) {
+            Log::error('Mail could not be sent: ' . $e->getMessage());
+        }
+
         return response()->json(['message' => 'Rendez-vous annulé avec succès']);
     }
 }
