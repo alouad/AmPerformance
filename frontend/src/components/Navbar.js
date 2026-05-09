@@ -44,6 +44,9 @@ const Navbar = () => {
               </button>
               <ul className="dropdown-menu dropdown-menu-end border-0 shadow-sm mt-2">
                 <li><Link className="dropdown-item" to="/profile">Mon Profil</Link></li>
+                {user?.role === 'admin' && (
+                  <li><Link className="dropdown-item fw-bold text-red" to="/admin"><i className="bi bi-shield-lock me-2"></i>Espace Admin</Link></li>
+                )}
                 <li><hr className="dropdown-divider" /></li>
                 <li><button className="dropdown-item text-danger" onClick={() => dispatch(logout())}>Déconnexion</button></li>
               </ul>

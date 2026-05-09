@@ -21,4 +21,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/profile', [AuthController::class, 'updateProfile']);
     Route::post('/appointments', [AppointmentController::class, 'store']);
     Route::get('/appointments', [AppointmentController::class, 'index']);
+
+    // Admin routes
+    Route::get('/admin/appointments', [\App\Http\Controllers\AdminController::class, 'getAppointments']);
+    Route::put('/admin/appointments/{id}/status', [\App\Http\Controllers\AdminController::class, 'updateAppointmentStatus']);
+    Route::post('/admin/institutions', [\App\Http\Controllers\AdminController::class, 'storeInstitution']);
+    Route::post('/admin/resources', [\App\Http\Controllers\AdminController::class, 'storeResource']);
 });

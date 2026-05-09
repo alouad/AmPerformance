@@ -7,9 +7,9 @@
   --color-light-grey: #F4F5F7;
   --color-dark: #212529;
   --color-white: #FFFFFF;
-  
-  --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
   --radius-md: 4px;
 }
 
@@ -21,10 +21,21 @@ body {
 }
 
 /* Colors Utilities */
-.text-red { color: var(--color-red) !important; }
-.text-dark { color: var(--color-dark) !important; }
-.bg-light-grey { background-color: var(--color-light-grey) !important; }
-.bg-dark { background-color: var(--color-dark) !important; }
+.text-red {
+  color: var(--color-red) !important;
+}
+
+.text-dark {
+  color: var(--color-dark) !important;
+}
+
+.bg-light-grey {
+  background-color: var(--color-light-grey) !important;
+}
+
+.bg-dark {
+  background-color: var(--color-dark) !important;
+}
 
 /* Buttons */
 .btn-primary-custom {
@@ -62,7 +73,7 @@ body {
 /* Navbar */
 .navbar-custom {
   background-color: var(--color-white);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
   padding: 15px 0;
 }
 

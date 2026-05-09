@@ -90,7 +90,7 @@ const Home = () => {
         <h3 className="text-center fw-bold text-dark mb-5">Où nous trouver</h3>
         <div className="card shadow-sm" style={{ borderRadius: '8px', overflow: 'hidden', border: '1px solid #EAEAEA' }}>
           <a href="https://maps.app.goo.gl/GyddcYWMPYBXqRQe6" target="_blank" rel="noopener noreferrer" className="text-decoration-none">
-            <div className="map-placeholder" style={{ cursor: 'pointer', transition: 'background-color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.backgroundColor='#e0e0e0'} onMouseOut={(e) => e.currentTarget.style.backgroundColor='#EBEBEB'}>
+            <div className="map-placeholder" style={{ cursor: 'pointer', transition: 'background-color 0.2s' }} onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#e0e0e0'} onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#EBEBEB'}>
               <div className="text-center">
                 <i className="bi bi-geo-alt d-block mb-2"></i>
                 <span className="text-red fw-bold">Voir sur Google Maps</span>

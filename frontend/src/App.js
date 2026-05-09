@@ -11,6 +11,7 @@ import Institutions from './pages/Institutions';
 import Articles from './pages/Articles';
 import RendezVous from './pages/RendezVous';
 import Profile from './pages/Profile';
+import AdminDashboard from './pages/AdminDashboard';
 import './App.css';
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path="/articles" element={<Articles />} />
             <Route path="/rendez-vous" element={<RendezVous />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
         </main>
         
