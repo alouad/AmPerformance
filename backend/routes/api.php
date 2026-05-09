@@ -23,8 +23,22 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/appointments', [AppointmentController::class, 'index']);
 
     // Admin routes
+    // Appointments
     Route::get('/admin/appointments', [\App\Http\Controllers\AdminController::class, 'getAppointments']);
     Route::put('/admin/appointments/{id}/status', [\App\Http\Controllers\AdminController::class, 'updateAppointmentStatus']);
+    Route::delete('/admin/appointments/{id}', [\App\Http\Controllers\AdminController::class, 'deleteAppointment']);
+
+    // Users
+    Route::get('/admin/users', [\App\Http\Controllers\AdminController::class, 'getUsers']);
+    Route::delete('/admin/users/{id}', [\App\Http\Controllers\AdminController::class, 'deleteUser']);
+
+    // Institutions
     Route::post('/admin/institutions', [\App\Http\Controllers\AdminController::class, 'storeInstitution']);
+    Route::put('/admin/institutions/{id}', [\App\Http\Controllers\AdminController::class, 'updateInstitution']);
+    Route::delete('/admin/institutions/{id}', [\App\Http\Controllers\AdminController::class, 'deleteInstitution']);
+
+    // Resources
     Route::post('/admin/resources', [\App\Http\Controllers\AdminController::class, 'storeResource']);
+    Route::put('/admin/resources/{id}', [\App\Http\Controllers\AdminController::class, 'updateResource']);
+    Route::delete('/admin/resources/{id}', [\App\Http\Controllers\AdminController::class, 'deleteResource']);
 });
