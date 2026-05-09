@@ -172,18 +172,18 @@ const AdminDashboard = () => {
                           <td>
                             <select 
                               className={`form-select form-select-sm fw-bold ${
-                                a.status === 'confirmé' ? 'text-success' : 
-                                a.status === 'annulé' ? 'text-danger' : 
-                                a.status === 'passé' ? 'text-secondary' : 'text-warning'
+                                a.status === 'confirmed' ? 'text-success' : 
+                                a.status === 'canceled' ? 'text-danger' : 
+                                a.status === 'completed' ? 'text-secondary' : 'text-warning'
                               }`} 
                               value={a.status} 
                               onChange={(e) => changeApptStatus(a.id, e.target.value)}
                               style={{ width: '130px' }}
                             >
                               <option value="pending">En attente</option>
-                              <option value="confirmé">Confirmé</option>
-                              <option value="annulé">Annulé</option>
-                              <option value="passé">Passé</option>
+                              <option value="confirmed">Confirmé</option>
+                              <option value="canceled">Annulé</option>
+                              <option value="completed">Passé</option>
                             </select>
                           </td>
                           <td>

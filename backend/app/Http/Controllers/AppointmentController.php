@@ -38,7 +38,7 @@ class AppointmentController extends Controller {
 
     public function cancel(Request $request, $id) {
         $appointment = Appointment::where('id', $id)->where('student_id', $request->user()->id)->firstOrFail();
-        $appointment->status = 'annulé';
+        $appointment->status = 'canceled';
         $appointment->save();
 
         try {

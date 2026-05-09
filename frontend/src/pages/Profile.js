@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateUserProfile } from '../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Profile = () => {
   const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
@@ -180,11 +181,13 @@ const Profile = () => {
                       <div className="d-flex justify-content-between align-items-center mb-1">
                         <h6 className="fw-bold mb-0">Rendez-vous Conseiller</h6>
                         <span className={`badge ${
-                          appt.status === 'confirmé' ? 'bg-success' : 
-                          appt.status === 'annulé' ? 'bg-danger' : 
-                          appt.status === 'passé' ? 'bg-secondary' : 'bg-warning text-dark'
+                          appt.status === 'confirmed' ? 'bg-success' : 
+                          appt.status === 'canceled' ? 'bg-danger' : 
+                          appt.status === 'completed' ? 'bg-secondary' : 'bg-warning text-dark'
                         }`}>
-                          {appt.status === 'pending' ? 'En attente' : appt.status.charAt(0).toUpperCase() + appt.status.slice(1)}
+                          {appt.status === 'pending' ? 'En attente' : 
+                           appt.status === 'confirmed' ? 'Confirmé' : 
+                           appt.status === 'canceled' ? 'Annulé' : 'Passé'}
                         </span>
                       </div>
                       <p className="text-muted small mb-1"><i className="bi bi-clock me-1"></i> Date prévue : {new Date(appt.date).toLocaleString('fr-FR', {dateStyle: 'medium', timeStyle: 'short'})}</p>
