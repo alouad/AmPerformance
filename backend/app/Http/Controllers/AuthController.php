@@ -18,6 +18,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:6',
             'niveau_etudes' => 'nullable|string',
             'filiere' => 'nullable|string',
+            'phone' => 'nullable|string|max:20',
         ]);
 
         $user = User::create([
@@ -27,6 +28,7 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             'niveau_etudes' => $request->niveau_etudes,
             'filiere' => $request->filiere,
+            'phone' => $request->phone,
             'role' => 'etudiant',
         ]);
 
@@ -78,6 +80,7 @@ class AuthController extends Controller
             'niveau_etudes' => 'nullable|string',
             'filiere' => 'nullable|string',
             'interets' => 'nullable|string',
+            'phone' => 'nullable|string|max:20',
         ]);
 
         if ($request->has('name')) $user->name = $request->name;
@@ -86,6 +89,7 @@ class AuthController extends Controller
         if ($request->has('niveau_etudes')) $user->niveau_etudes = $request->niveau_etudes;
         if ($request->has('filiere')) $user->filiere = $request->filiere;
         if ($request->has('interets')) $user->interets = $request->interets;
+        if ($request->has('phone')) $user->phone = $request->phone;
 
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);

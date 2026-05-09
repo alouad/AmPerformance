@@ -87,6 +87,18 @@ const Register = () => {
             />
           </div>
 
+          <div className="mb-3">
+            <label className="form-label fw-bold text-dark">Téléphone</label>
+            <input 
+              type="text" 
+              className="form-control" 
+              name="phone"
+              placeholder="06XXXXXXXX"
+              value={formData.phone}
+              onChange={handleChange}
+            />
+          </div>
+
           <div className="row g-3 mb-3">
             <div className="col-md-6">
               <label className="form-label fw-bold text-dark">Niveau d'études actuel</label>

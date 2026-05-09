@@ -27,11 +27,18 @@ class AppointmentController extends Controller {
         ]);
 
         try {
-            Mail::to('NOURALHOUDA0091@GMAIL.COM')->send(new AppointmentCreated($appointment, $request->user()));
+            Mail::to('nouralhouda.tech@gmail.com')->send(new AppointmentCreated($appointment, $request->user()));
         } catch (\Exception $e) {
             Log::error('Mail could not be sent: ' . $e->getMessage());
         }
 
         return response()->json(['message' => 'Rendez-vous enregistré avec succès', 'appointment' => $appointment], 201);
+    }
+
+    public function cancel(Request $request, $id) {
+        $appointment = Appointment::where('id', $id)->where('student_id', $request->user()->id)->firstOrFail();
+        $appointment->status = 'annulé';
+        $appointment->save();
+        return response()->json(['message' => 'Rendez-vous annulé avec succès']);
     }
 }

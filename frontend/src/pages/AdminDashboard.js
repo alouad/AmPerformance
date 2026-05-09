@@ -60,10 +60,10 @@ const AdminDashboard = () => {
   };
 
   // ================= CRUD APPOINTMENTS =================
-  const confirmAppt = async (id) => {
+  const changeApptStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:8000/api/admin/appointments/${id}/status`, { status: 'confirmé' }, getHeaders());
-      fetchData(); showMsg('Rendez-vous confirmé !');
+      await axios.put(`http://localhost:8000/api/admin/appointments/${id}/status`, { status }, getHeaders());
+      fetchData(); showMsg('Statut du rendez-vous mis à jour !');
     } catch (e) { console.error(e); }
   };
   const deleteAppt = async (id) => {
@@ -169,9 +169,24 @@ const AdminDashboard = () => {
                           <td className="fw-bold">{a.student_name || 'Étudiant'}</td>
                           <td>{new Date(a.date).toLocaleString('fr-FR')}</td>
                           <td>{a.notes || '-'}</td>
-                          <td><span className={`badge ${a.status === 'pending' ? 'bg-warning text-dark' : 'bg-success'}`}>{a.status === 'pending' ? 'En attente' : 'Confirmé'}</span></td>
                           <td>
-                            {a.status === 'pending' && <button onClick={() => confirmAppt(a.id)} className="btn btn-sm btn-success me-2"><i className="bi bi-check"></i></button>}
+                            <select 
+                              className={`form-select form-select-sm fw-bold ${
+                                a.status === 'confirmé' ? 'text-success' : 
+                                a.status === 'annulé' ? 'text-danger' : 
+                                a.status === 'passé' ? 'text-secondary' : 'text-warning'
+                              }`} 
+                              value={a.status} 
+                              onChange={(e) => changeApptStatus(a.id, e.target.value)}
+                              style={{ width: '130px' }}
+                            >
+                              <option value="pending">En attente</option>
+                              <option value="confirmé">Confirmé</option>
+                              <option value="annulé">Annulé</option>
+                              <option value="passé">Passé</option>
+                            </select>
+                          </td>
+                          <td>
                             <button onClick={() => deleteAppt(a.id)} className="btn btn-sm btn-danger"><i className="bi bi-trash"></i></button>
                           </td>
                         </tr>
